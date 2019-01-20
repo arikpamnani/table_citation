@@ -27,7 +27,7 @@ def extract_tar(path):
                 files_not_extracted += 1
         total_files += 1
     print("Total files - %d"%total_files)
-    print("Files not exracted - %d"%files_not_extracted)
+    print("Files not extracted - %d"%files_not_extracted)
 
 
 def parse_tex(path):
