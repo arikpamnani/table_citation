@@ -33,8 +33,7 @@ def extract_tar(path):
 def parse_tex(path):
     for filename in os.listdir(path):
         full_filename = os.path.join(path, filename)
-        if(os.path.isdir(full_filename)):
-            
+        if(os.path.isdir(full_filename)):  
             for filename_ in os.listdir(full_filename):        
                 if(filename_.endswith(".tex")):
                     full_filename_ = os.path.join(full_filename, filename_)
@@ -43,11 +42,28 @@ def parse_tex(path):
 
 
 def find_tables(path):
+    contents = ""
     num_tables = 0
     with open(path, 'r', encoding='ISO-8859-1') as fin:
         for line in fin:
-            if("\\begin{table}" in line or "\\begin{tabular}" in line):
-                num_tables += 1
+            contents += (line)
+            # if("\\begin{table}" in line or "\\begin{tabular}" in line):
+                # print(line)
+                # num_tables += 1
+    # return num_tables
+    result = []
+    index = 0
+    while(index < len(contents)):
+        index = contents.find("\\begin{table}", index)
+        index_ = contents.find("\\end{table}", index)
+        result.append(contents[index:index_+len("\\end{table}")])
+        if(index == -1):
+            break
+        index += 2
+    num_tables = 0
+    for k in result:
+        if("\\begin{tabular}" in k):
+            num_tables += 1
     return num_tables
 
 
@@ -64,3 +80,4 @@ if __name__ == "__main__":
     # convert_gz_to_tar(src_path)
     # extract_tar(src_path)
     parse_tex(src_path)
+    # find_tables("D:\\arXiv_src_0812_004\\0812\\0812.4333\\tail_v3.tex")
