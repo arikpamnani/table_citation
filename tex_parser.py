@@ -27,7 +27,7 @@ def extract_tar(path):
                 files_not_extracted += 1
         total_files += 1
     print("Total files - %d"%total_files)
-    print("Files not extracted - %d"%files_not_extracted)
+    print("Files not exracted - %d"%files_not_extracted)
 
 
 def parse_tex(path):
@@ -62,7 +62,7 @@ def find_tables(path):
         index += 2
     num_tables = 0
     for k in result:
-        if("\\begin{tabular}" in k):
+        if("\\begin{tabular}" in k and "\\figcaption" not in k):
             num_tables += 1
     return num_tables
 
@@ -80,7 +80,3 @@ if __name__ == "__main__":
     # convert_gz_to_tar(src_path)
     # extract_tar(src_path)
     parse_tex(src_path)
-<<<<<<< HEAD
-    # find_tables("D:\\arXiv_src_0812_004\\0812\\0812.4333\\tail_v3.tex")
-=======
->>>>>>> a344dd1d25c64412547b7f4d41f547ab96163f4b
